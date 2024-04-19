@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    #modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    #close-modal {
+        margin-top: 10px;
+    }
+</style>
+
+
+<main>
+    <div class="row">
+
+    </div>
+
+    <div>
+        <button id="timer-button">Iniciar Temporizador</button>
+
+        <div id="timer-container" class="hidden">
+
+            <p id="timer"></p>
+        </div>
+
+        <div id="modal" class="hidden">
+            <div id="modal-content">
+                <h2>Tempo Expirado!</h2>
+                <p>O tempo do temporizador expirou.</p>
+                <button id="close-modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var timerButton = document.getElementById("timer-button");
+        var timerContainer = document.getElementById("timer-container");
+        var timerDisplay = document.getElementById("timer");
+        var modal = document.getElementById("modal");
+        var closeModalButton = document.getElementById("close-modal");
+
+        timerButton.addEventListener("click", function () {
+            timerButton.disabled = true;
+            timerButton.style.display = "none"; // Esconde o botão
+
+            timerContainer.classList.remove("hidden");
+
+            var seconds = 10; // Definir a duração do temporizador em segundos
+
+            var countdown = setInterval(function () {
+                timerDisplay.textContent = seconds + " segundos restantes";
+                seconds--;
+
+                if (seconds < 0) {
+                    clearInterval(countdown);
+                    modal.style.display = "flex";
+                }
+            }, 1000);
+        });
+
+        closeModalButton.addEventListener("click", function () {
+            modal.style.display = "none";
+            window.location.href = "https://localhost:44355/Home/Contact"; // Substitua "outra_pagina.html" pelo caminho da sua outra página
+        });
+    });
+
+
+</script>
+  
+
+
